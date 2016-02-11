@@ -65,6 +65,19 @@ Finally the `~/.m2/settings.xml` must be updated to include access and secret ke
     ...
   </servers>
   ...
+  <proxies>
+    ...
+    <proxy>
+      <id>s3-proxy</id>
+      <active>true</active>
+      <protocol>s3</protocol>
+      <host>1.2.3.4</host>
+      <port>80</port>
+      <nonProxyHosts>localhost|127.0.0.1|*.internal</nonProxyHosts>
+    </proxy>
+    ...
+  </proxies>
+  ...
 </settings>
 ```
 
@@ -73,6 +86,7 @@ Alternatively, the access and secret keys for the account can be provided using
 * `AWS_ACCESS_KEY_ID` (or `AWS_ACCESS_KEY`) and `AWS_SECRET_KEY` (or `AWS_SECRET_ACCESS_KEY`) [environment variables][env-var]
 * `aws.accessKeyId` and `aws.secretKey` [system properties][sys-prop]
 * The Amazon EC2 [Instance Metadata Service][instance-metadata]
+* AWS Profiles configured using the AWS CLI, which are stored in `~/.aws/config`
 
 ## Making Artifacts Public
 This wagon doesn't set an explict ACL for each artfact that is uploaded.  Instead you should create an AWS Bucket Policy to set permissions on objects.  A bucket policy can be set in the [AWS Console][console] and can be generated using the [AWS Policy Generator][policy-generator].
